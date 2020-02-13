@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+    <script src="jstp1.js"></script>
+</head>
+
+<body ng-app='myApp' ng-controller='tarefasPendentes'>
+    <button ng-click="mostrarCategoria()">+ Categoria</button>
+    <button ng-click="mostrarTarefa()">+ Tarefa</button>
+    <button onclick="window.location.href = 'home_por_categoria.html';">Ver tarefas por categorias</button>
+
+    <div ng-show="trocarCategoria">
+        <input type="text" ng-model="inputCategoria" placeholder="Escreva a categoria">
+        <button ng-click="novaCategoria(inputCategoria)">Adicionar Categoria</button>
+        <button ng-click="esconderrCategoria()">Cancelar Categoria</button>
+    </div>
+    
+    <div ng-show="trocarTarefa">
+        <select ng-model="selectCategoria">
+            <option ng-repeat="cat in categorias">{{cat}}</option>
+        </select>
+        <input type="text" ng-model="inputTarefa" placeholder="Escreva a tarefa">
+        <button ng-click="novaTarefa(inputTarefa,selectCategoria)">Adicionar Tarefa</button>
+        <button ng-click="esconderTarefa()">Cancelar Tarefa</button>
+    </div>
+
+    </br>
+    </br>
+
+    <table>
+        <caption>Tarefas Pendentes</caption>
+        <thead>
+            <tr>
+                <th>Tarefa realizada </th>
+                <th>Tarefa</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="tar in tarefas| filter:{feito:false}">
+                <td><input type="checkbox" ng-click='funcaoCheckBox(tar)'></td>
+                <td>{{tar.nome}}</td>
+                <td>{{tar.categoria}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    </br>
+    </br>
+
+    <table>
+        <caption>Tarefas Concluídas</caption>
+        <thead>
+            <tr>
+                <th>Tarefa realizada </th>
+                <th>Tarefa</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="tar in tarefas| filter:{feito:true}">
+                <td><input type="checkbox" ng-click='funcaoCheckBox(tar)' checked></td>
+                <td>{{tar.nome}}</td>
+                <td>{{tar.categoria}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>
